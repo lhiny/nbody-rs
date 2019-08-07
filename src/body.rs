@@ -50,7 +50,7 @@ impl Body {
 #[cfg(test)]
 mod tests {
     use super::*;
-    // TODO: write unit tests
+
     #[test]
     fn test_new() {
         let b1 = Body::new(100.0, 10.0, -10.0, 0);

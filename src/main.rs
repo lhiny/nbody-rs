@@ -1,6 +1,6 @@
 extern crate rand;
 mod body;
-mod state;
+mod nbody;
 mod simulation;
 mod vec2d;
 
@@ -18,8 +18,12 @@ fn main() {
     for i in 0..100 {
         let x = rng.gen::<f64>() * 1000000000.0;
         let y = rng.gen::<f64>() * 1000000000.0;
-        let m = rng.gen::<f64>() * 1E22 + 1E22;
-        let b = Body::new(m, x, y, i);
+        let m = rng.gen::<f64>() * 1E22;
+        let mut b = Body::new(m, x, y, i);
+        b.update_velocity(
+            (rng.gen::<f64>() - 0.5) * 1000.0,
+            (rng.gen::<f64>() - 0.5) * 1000.0,
+        );
         bodies.push(b);
     }
 

@@ -2,13 +2,13 @@ use crate::body::Body;
 use crate::vec2d::Vec2d;
 
 #[derive(Debug)]
-pub struct State {
+pub struct NBody {
     bodies: Vec<Body>,
 }
 
-impl State {
-    pub fn new(bodies: &Vec<Body>) -> State {
-        State {
+impl NBody {
+    pub fn new(bodies: &Vec<Body>) -> NBody {
+        NBody {
             bodies: bodies.to_owned(),
         }
     }
@@ -50,10 +50,8 @@ impl State {
         let mut id = 0;
         for b in self.bodies.iter_mut() {
             let acc = accelerations.get(id).unwrap();
-            // print!("b{}: {} {} ", id, acc.get_x(), acc.get_y());
             b.update_velocity(acc.get_x() * dt, acc.get_y() * dt);
             id += 1;
         }
-        // println!();
     }
 }
