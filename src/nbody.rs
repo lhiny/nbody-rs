@@ -13,10 +13,7 @@ impl NBody {
         }
     }
 
-    pub fn get_bodies(&self) -> &Vec<Body> {
-        &self.bodies
-    }
-
+    // Calculates the net acceleration vector acting on each body in the bodies array.
     fn calculate_acc(&self) -> Vec<Vec2d> {
         const G: f64 = 6.67408E-11;
         let mut accelerations: Vec<Vec2d> = Vec::new();
@@ -36,6 +33,7 @@ impl NBody {
         accelerations
     }
 
+    // Updates the positions of each body in the bodies array, according to its current velocity.
     // dt: time, in seconds, to update the system by. Not to be confused with frame time
     pub fn update_positions(&mut self, dt: f64) {
         // First, calculate acceleration
@@ -45,6 +43,7 @@ impl NBody {
         }
     }
 
+    // Updates the velocity vector of each body in the bodies array, according to calculated accelerations and delta-T.
     pub fn update_velocities(&mut self, dt: f64) {
         let accelerations = self.calculate_acc();
         let mut id = 0;
@@ -53,5 +52,9 @@ impl NBody {
             b.update_velocity(acc.get_x() * dt, acc.get_y() * dt);
             id += 1;
         }
+    }
+
+    pub fn get_bodies(&self) -> &Vec<Body> {
+        &self.bodies
     }
 }

@@ -1,4 +1,9 @@
+extern crate glutin_window;
+extern crate graphics;
+extern crate opengl_graphics;
+extern crate piston;
 extern crate rand;
+
 mod body;
 mod nbody;
 mod simulation;
@@ -11,10 +16,10 @@ use rand::Rng;
 use simulation::Simulation;
 
 fn main() {
-    // Initiate vector of bodies with random pos. and mass
+    // Initialise vector of bodies with random position and mass
     let mut rng = rand::thread_rng();
     let mut bodies = Vec::new();
-    bodies.reserve(10);
+    bodies.reserve(100);
     for i in 0..100 {
         let x = rng.gen::<f64>() * 1000000000.0;
         let y = rng.gen::<f64>() * 1000000000.0;
@@ -27,8 +32,8 @@ fn main() {
         bodies.push(b);
     }
 
-    // Init simulation
-    let mut sim = Simulation::new(800, 600, &bodies);
+    // Initialise simulation
+    let mut sim = Simulation::new(512, 512, &bodies);
     // Event loop
     let mut events = Events::new(EventSettings::new());
     while let Some(e) = events.next(sim.get_window()) {

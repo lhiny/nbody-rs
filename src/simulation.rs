@@ -1,8 +1,3 @@
-extern crate glutin_window;
-extern crate graphics;
-extern crate opengl_graphics;
-extern crate piston;
-
 use crate::body::Body;
 use crate::nbody::NBody;
 use glutin_window::GlutinWindow;
@@ -18,9 +13,10 @@ pub struct Simulation {
 }
 
 impl Simulation {
+    // Creates a new NBody simulation and a window to display its results
     pub fn new(width: u32, height: u32, bodies: &Vec<Body>) -> Simulation {
         let window_result = WindowSettings::new("nbody-rs", [width, height])
-            .graphics_api(OpenGL::V4_3)
+            .graphics_api(OpenGL::V4_0)
             .exit_on_esc(true)
             .build();
         match window_result {
@@ -34,6 +30,7 @@ impl Simulation {
         }
     }
 
+    // Draws all of the bodies with according colors to indicate mass.
     pub fn render(&mut self, args: &RenderArgs) {
         const COLOR_SCHEME: [(f32, f32, f32); 20] = [
             (0.871, 0.929, 0.812),
@@ -85,8 +82,9 @@ impl Simulation {
         self.graphics.draw_end();
     }
 
+    // Updates the state of the simulation.
     pub fn update(&mut self, args: &UpdateArgs) {
-        // time multiplier, in ms simulation time to ms frame time.
+        // time multiplier, in ms simulation time per ms frame time.
         const TIME_SCALE: f64 = 60000.0;
         self.state.update_positions(TIME_SCALE * args.dt);
         self.state.update_velocities(TIME_SCALE * args.dt)

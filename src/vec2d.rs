@@ -11,16 +11,19 @@ impl Vec2d {
         Vec2d { x: x, y: y }
     }
 
+    // Calculates the distance to another vector in space, squared
     pub fn dist_sq(&self, other: &Vec2d) -> f64 {
         let dx = other.x - self.x;
         let dy = other.y - self.y;
         dx * dx + dy * dy
     }
 
+    // Calculates the length of this vector
     pub fn length_sq(&self) -> f64 {
         self.x * self.x + self.y * self.y
     }
 
+    // Returns a normalized (i.e. length 1) version of this vector
     pub fn normalized(&self) -> Vec2d {
         let l = self.length_sq().sqrt();
         if l == 0.0 {
@@ -49,6 +52,7 @@ impl Vec2d {
     }
 }
 
+// Operator overload for addition
 impl Add for Vec2d {
     type Output = Vec2d;
     fn add(self, other: Vec2d) -> Self::Output {
@@ -59,23 +63,24 @@ impl Add for Vec2d {
     }
 }
 
-// Scalar multiply
-impl Mul<f64> for Vec2d {
-    type Output = Vec2d;
-    fn mul(self, other: f64) -> Self::Output {
-        Vec2d {
-            x: self.x * other,
-            y: self.y * other,
-        }
-    }
-}
-
+// Operator overload for subtraction
 impl Sub for Vec2d {
     type Output = Vec2d;
     fn sub(self, other: Vec2d) -> Self::Output {
         Vec2d {
             x: self.x - other.x,
             y: self.y - other.y,
+        }
+    }
+}
+
+// Operator overload for (scalar) multiplication
+impl Mul<f64> for Vec2d {
+    type Output = Vec2d;
+    fn mul(self, other: f64) -> Self::Output {
+        Vec2d {
+            x: self.x * other,
+            y: self.y * other,
         }
     }
 }
